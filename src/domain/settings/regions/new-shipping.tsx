@@ -242,7 +242,7 @@ const NewShipping = ({ isReturn, region, onCreated, onClick }) => {
                     size="small"
                   >
                     <CurrencyInput.AmountInput
-                      label="Price"
+                      label="Min. Subtotal"
                       onChange={(v) =>
                         handleAmountChange(
                           "requirements.min_subtotal.amount",
@@ -258,7 +258,7 @@ const NewShipping = ({ isReturn, region, onCreated, onClick }) => {
                     size="small"
                   >
                     <CurrencyInput.AmountInput
-                      label="Price"
+                      label="Max. Subtotal"
                       onChange={(v) =>
                         handleAmountChange(
                           "requirements.max_subtotal.amount",
@@ -268,6 +268,22 @@ const NewShipping = ({ isReturn, region, onCreated, onClick }) => {
                       amount={undefined}
                     />
                   </CurrencyInput>
+                  <Input
+                    label="Min. Count"
+                    name="requirements.min_count.amount"
+                    type="number"
+                    placeholder="0"
+                    className="flex-grow"
+                    ref={register({ valueAsNumber: true })}
+                  />
+                  <Input
+                    label="Max. Count"
+                    name="requirements.max_count.amount"
+                    type="number"
+                    placeholder="0"
+                    className="flex-grow"
+                    ref={register({ valueAsNumber: true })}
+                  />
                 </div>
               </div>
             )}

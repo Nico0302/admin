@@ -22,24 +22,19 @@ const EditShipping = ({ shippingOption, region, onDone, onClick }) => {
 
   useEffect(() => {
     if (shippingOption.requirements) {
-      const minSubtotal = shippingOption.requirements.find(
-        (req) => req.type === "min_subtotal"
-      )
-      if (minSubtotal) {
-        shippingOption.requirements.min_subtotal = {
-          amount: minSubtotal.amount,
-          id: minSubtotal.id,
+      ;["min_subtotal", "max_subtotal", "min_count", "max_count"].forEach(
+        (type) => {
+          const requirement = shippingOption.requirements.find(
+            (req) => req.type === type
+          )
+          if (requirement) {
+            shippingOption.requirements[type] = {
+              amount: requirement.amount,
+              id: requirement.id,
+            }
+          }
         }
-      }
-      const maxSubtotal = shippingOption.requirements.find(
-        (req) => req.type === "max_subtotal"
       )
-      if (maxSubtotal) {
-        shippingOption.requirements.max_subtotal = {
-          amount: maxSubtotal.amount,
-          id: maxSubtotal.id,
-        }
-      }
     }
 
     reset({ ...shippingOption })
@@ -239,7 +234,7 @@ const EditShipping = ({ shippingOption, region, onDone, onClick }) => {
                           amount={
                             shippingOption.requirements?.min_subtotal?.amount
                           }
-                          label="Min. subtotal"
+                          label="Min. Subtotal"
                           onChange={(amount) => handleMinChange(amount)}
                         />
                       </CurrencyInput>
@@ -252,10 +247,26 @@ const EditShipping = ({ shippingOption, region, onDone, onClick }) => {
                           amount={
                             shippingOption.requirements?.max_subtotal?.amount
                           }
-                          label="Max. subtotal"
+                          label="Max. Subtotal"
                           onChange={(amount) => handleMaxChange(amount)}
                         />
                       </CurrencyInput>
+                      <Input
+                        label="Min. Count"
+                        name="requirements.min_count.amount"
+                        type="number"
+                        placeholder="0"
+                        className="flex-grow"
+                        ref={register({ valueAsNumber: true })}
+                      />
+                      <Input
+                        label="Max. Count"
+                        name="requirements.max_count.amount"
+                        type="number"
+                        placeholder="0"
+                        className="flex-grow"
+                        ref={register({ valueAsNumber: true })}
+                      />
                     </div>
                   </>
                 )}
